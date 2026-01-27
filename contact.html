@@ -1,39 +1,205 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contacte</title>
-    <link rel="stylesheet" href="css/estilContacte.css">
+    <title>Contactar | Pau Mateo</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Space+Grotesk:wght@500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Icons -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    <header class="header">
-        <a href="index.html" class="logo">Pau Mateo</a>
 
-        <nav class="navbar">
+    <main class="page-wrapper">
 
-            <a href="index.html">Home</a>
-            <!--<a href="activitats/activitats.html">Activitats</a>-->
-            <a href="about.html">About</a> 
-            <a href="projects.html">Projects</a>
-            <a href="contact.html">Contact</a>
-            <!--<a href="wireframes.html">Wireframes</a>-->
+        <!-- New Simple Nav -->
+        <nav class="simple-nav">
+            <div class="nav-breadcrumb">
+                <span class="brand">Pau Mateo</span>
+                <span class="divider">/</span>
+                <span class="current">Contacto</span>
+            </div>
+            <a href="index.html" class="btn secondary back-btn">
+                <i class='bx bx-arrow-back'></i> Volver
+            </a>
         </nav>
-    </header>
 
-    
-    
+        <div class="contact-grid">
 
-    <section class="form-register">
-        <form action="https://formspree.io/f/xovqolzl" method="POST">
-        <h4>Contact form</h4>
-        <input class="controls" type="text" name="nombres" id="nombres" placeholder="Name">
-        <input class="controls" type="text" name="apellidos" id="apellidos" placeholder="Company Name">
-        <input class="controls" type="email" name="correo" id="correo" placeholder="Email Address">
-        <input class="controls" type="text" name="correo" id="correo" placeholder="Message">
-        <input class="botons" type="submit" value="Enviar">
-    </form>
-    </section>
-    
+            <!-- LEFT COLUMN: Info & Widgets -->
+            <div class="contact-left">
+
+                <!-- NEW: Download CV Card (Primary Action) -->
+                <a href="assets/cv.pdf" download class="bento-item cv-card">
+                    <div class="cv-content">
+                        <div class="cv-icon"><i class='bx bxs-file-pdf'></i></div>
+                        <div>
+                            <h3>Descargar CV</h3>
+                            <p>Resumen completo (PDF)</p>
+                        </div>
+                    </div>
+                    <i class='bx bx-download download-arrow'></i>
+                </a>
+
+                <!-- Social Links Split Row -->
+                <div class="split-row">
+                    <a href="https://www.linkedin.com/in/pau-mateo-150471262" target="_blank"
+                        class="bento-item social-card linkedin-contact">
+                        <i class='bx bxl-linkedin'></i>
+                        <span>LinkedIn</span>
+                    </a>
+                    <a href="https://www.github.com/P25005/" target="_blank"
+                        class="bento-item social-card github-contact">
+                        <i class='bx bxl-github'></i>
+                        <span>GitHub</span>
+                    </a>
+                </div>
+
+                <!-- Email Widget -->
+                <div class="bento-item email-widget-large" onclick="copyEmailContact()">
+                    <div class="icon-box">
+                        <i class='bx bx-envelope'></i>
+                    </div>
+                    <div class="email-details-lg">
+                        <span>Envíame un correo</span>
+                        <h3>paumateo025@gmail.com</h3>
+                    </div>
+                    <i class='bx bx-copy copy-icon'></i>
+                    <div class="copy-success-overlay">
+                        <i class='bx bx-check-circle'></i> ¡Copiado!
+                    </div>
+                </div>
+
+                <!-- NEW: Services Card (Context) -->
+                <div class="bento-item services-card">
+                    <h3>¿En qué puedo ayudarte?</h3>
+                    <ul class="services-list">
+                        <li><i class='bx bx-code-alt'></i> Aplicaciones Web (SPA)</li>
+                        <li><i class='bx bx-server'></i> Backend & Bases de Datos</li>
+                        <li><i class='bx bx-mobile-alt'></i> Apps Multiplataforma</li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <!-- RIGHT COLUMN: Form -->
+            <div class="contact-right">
+                <div class="bento-item form-card-large">
+                    <div class="form-header">
+                        <h2>¡Hablemos! 🚀</h2>
+                        <p>Cuéntame sobre tu proyecto, propuesta o simplemente saluda.</p>
+                    </div>
+
+                    <form id="contactFormFull" action="https://formspree.io/f/xovqolzl" method="POST">
+                        <div class="form-row">
+                            <div class="form-group-modern">
+                                <label for="name">Nombre</label>
+                                <input type="text" id="name" name="name" placeholder="Tu nombre" required>
+                            </div>
+                            <div class="form-group-modern">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" name="email" placeholder="ejemplo@correo.com" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group-modern">
+                            <label for="subject">Asunto</label>
+                            <select id="subject" name="subject">
+                                <option value="Propuesta de Proyecto">Propuesta de Proyecto</option>
+                                <option value="Oferta Laboral">Oferta Laboral</option>
+                                <option value="Freelance">Freelance</option>
+                                <option value="Otro">Otro</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group-modern">
+                            <label for="message">Mensaje</label>
+                            <textarea id="message" name="message" rows="5" placeholder="Detalles de tu mensaje..."
+                                required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn-submit-large">
+                            Enviar Mensaje <i class='bx bx-paper-plane'></i>
+                        </button>
+                    </form>
+                    <div id="form-status-lg" class="form-status"></div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        // 1. Clock Logic
+        function updateContactTime() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Madrid' });
+            const el = document.getElementById('contact-time');
+            if (el) el.textContent = timeString;
+        }
+        setInterval(updateContactTime, 1000);
+        updateContactTime();
+
+        // 2. Email Copy Logic
+        function copyEmailContact() {
+            const email = "paumateo025@gmail.com";
+            navigator.clipboard.writeText(email).then(() => {
+                const widget = document.querySelector('.email-widget-large');
+                widget.classList.add('copied');
+
+                // Simple confetti-like effect (optional, or just use the overlay)
+                setTimeout(() => {
+                    widget.classList.remove('copied');
+                }, 2000);
+            });
+        }
+
+        // 3. Form Logic
+        const form = document.getElementById('contactFormFull');
+        form.addEventListener("submit", async function (event) {
+            event.preventDefault();
+            const status = document.getElementById('form-status-lg');
+            const btn = form.querySelector('.btn-submit-large');
+            const originalBtnContent = btn.innerHTML;
+
+            // Use CSS loading class
+            btn.classList.add('loading');
+            btn.disabled = true;
+
+            const data = new FormData(event.target);
+
+            fetch(event.target.action, {
+                method: form.method,
+                body: data,
+                headers: { 'Accept': 'application/json' }
+            }).then(response => {
+                if (response.ok) {
+                    status.innerHTML = '<span style="color:var(--success-color)">¡Mensaje enviado correctamente!</span>';
+                    form.reset();
+                } else {
+                    status.innerHTML = '<span style="color:var(--error-color)">Hubo un error. Inténtalo de nuevo.</span>';
+                }
+                btn.classList.remove('loading');
+                btn.disabled = false;
+            }).catch(error => {
+                status.innerHTML = '<span style="color:var(--error-color)">Error de conexión.</span>';
+                btn.classList.remove('loading');
+                btn.disabled = false;
+            });
+        });
+    </script>
 </body>
+
 </html>

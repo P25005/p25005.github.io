@@ -1,56 +1,140 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portafoli Pau</title>
-    <link rel="stylesheet" href="css/estils.css">
+    <meta name="description"
+        content="Portfolio de Pau Mateo - Desarrollador de Aplicaciones Multiplataforma (DAM) y Web. Especialista en HTML, CSS, Java y Kotlin.">
+    <title>Pau Mateo | DAM & Web Developer</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Space+Grotesk:wght@500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Icons -->
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <meta name="description" content="Descubre el portafolio de Pau Mateo, un desarrollador web con experiencia en proyectos front-end y back-end. Explora mis habilidades en HTML, CSS, Java, Python y más.">
 
-
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    
-    <header class="header">
-        <a href="index.html" class="logo">Pau Mateo</a>
 
-        <nav class="navbar">
+    <main class="bento-grid">
 
-            <a href="">Home</a>
-            <!--<a href="activitats/activitats.html">Activitats</a>-->
-            <a href="about.html">About</a> 
-            <a href="projects.html">Projects</a>
-            <a href="contact.html">Contact</a>
-            <!--<a href="wireframes.html">Wireframes</a>-->
-        </nav>
-    </header>
-
-    <section class="home">
-        <div class="home-content">
-            <h1>Hi I'm Pau Mateo</h1>
-            <h3>DAM Student</h3>
-            <!--<p>Estudiant de Desenvolupament d'aplicacións Multiplataforma</p>-->
-            <p>I’m a web and software developer skilled in HTML, CSS, Java, Kotlin, Python, and SQL.
-                 I focus on creating responsive websites and efficient applications, always aiming for clean,
-                  functional code. I’m eager to apply my skills and contribute to innovative projects.</p>
-            <div class="btn-box">
-                <a href="contact.html">Contact</a>
+        <!-- 1. Profile / Hero -->
+        <article class="bento-item profile-card">
+            <div class="profile-content">
+                <div class="profile-header">
+                    <img src="imatges/Foto1.jpg" alt="Pau Mateo" class="profile-avatar">
+                    <div class="status-badge">
+                        <span class="status-dot"></span> Disponible
+                    </div>
+                </div>
+                <h1>Pau Mateo</h1>
+                <h2>DAM & DAW Student</h2>
+                <p>Desarrollador de software apasionado por crear experiencias web eficientes y aplicaciones
+                    multiplataforma sólidas.</p>
+                <div class="action-buttons">
+                    <a href="contact.html" class="btn primary">Contactar <i class='bx bx-send'></i></a>
+                    <a href="projects-coming-soon.html" class="btn secondary">Ver Proyectos</a>
+                </div>
             </div>
+        </article>
+
+        <!-- 2. Social Media: LinkedIn -->
+        <a href="https://www.linkedin.com/in/pau-mateo-150471262" target="_blank"
+            class="bento-item social-card linkedin">
+            <i class='bx bxl-linkedin'></i>
+            <span>LinkedIn</span>
+            <i class='bx bx-up-arrow-alt arrow-icon'></i>
+        </a>
+
+        <!-- 3. Social Media: GitHub -->
+        <a href="https://www.github.com/P25005/" target="_blank" class="bento-item social-card github">
+            <i class='bx bxl-github'></i>
+            <span>GitHub</span>
+            <i class='bx bx-up-arrow-alt arrow-icon'></i>
+        </a>
+
+        <!-- 4. Location / Info -->
+        <article class="bento-item info-card">
+            <h3>Ubicación</h3>
+            <p>Lleida 🇪🇸</p>
+            <div class="time-display" id="local-time">--:--</div>
+        </article>
+
+        <!-- 5. Email Quick Copy -->
+        <div class="bento-item email-card" onclick="copyEmail()">
+            <div class="email-icon"><i class='bx bx-copy'></i></div>
+            <div class="email-info">
+                <span>Email</span>
+                <p id="email-text">paumateo025@gmail.com</p>
+            </div>
+            <div class="copy-feedback">¡Copiado!</div>
         </div>
 
-        <div class="social">
-            <a href="https://www.linkedin.com/in/pau-mateo-150471262"><i class='bx bxl-linkedin' ></i></a>
-            <a href="https://www.github.com/P25005/"><i class='bx bxl-github'></i></a>
-            <p>&copy;2025 Pau Mateo</p>
-        </div>
-    </section>
+        <!-- 6. About Me (Longer Bio) -->
+        <article class="bento-item about-card">
+            <h3>Sobre Mí</h3>
+            <p>Soy un desarrollador versátil con una base sólida en lógica de programación y despliegue web. Mi enfoque
+                combina la eficiencia del backend (Java, SQL) con la creatividad del frontend moderno.</p>
+            <p class="fade-text">Siempre busco escribir código limpio, funcional y escalable, priorizando la experiencia
+                de usuario y el rendimiento.</p>
+        </article>
 
-    
+        <!-- 7. Tech Stack / Skills -->
+        <section class="bento-item skills-card">
+            <h3>Tech Stack</h3>
+            <div class="skills-wrapper">
+                <span class="skill-pill"><i class='bx bxl-angular'></i> Angular</span>
+                <span class="skill-pill"><i class='bx bxl-javascript'></i> JavaScript</span>
+                <span class="skill-pill"><i class='bx bxl-html5'></i> HTML5</span>
+                <span class="skill-pill"><i class='bx bxl-css3'></i> CSS3</span>
+                <span class="skill-pill"><i class='bx bxl-bootstrap'></i> Bootstrap</span>
+                <span class="skill-pill"><i class='bx bxl-java'></i> Java</span>
+                <span class="skill-pill"><i class='bx bxl-php'></i> PHP</span>
+                <span class="skill-pill"><i class='bx bxs-flame'></i> CodeIgniter</span>
+                <span class="skill-pill"><i class='bx bxl-python'></i> Python</span>
+                <span class="skill-pill"><i class='bx bxl-windows'></i> .NET</span>
+                <span class="skill-pill"><i class='bx bxl-android'></i> Kotlin</span>
+                <span class="skill-pill"><i class='bx bxs-phone'></i> Ionic</span>
+                <span class="skill-pill"><i class='bx bxs-chip'></i> Capacitor</span>
+                <span class="skill-pill"><i class='bx bxs-data'></i> SQL</span>
+                <span class="skill-pill"><i class='bx bxl-docker'></i> Docker</span>
+                <span class="skill-pill"><i class='bx bxl-git'></i> Git</span>
+                <span class="skill-pill"><i class='bx bxl-tux'></i> Linux</span>
+                <span class="skill-pill"><i class='bx bxl-wordpress'></i> WordPress</span>
+                <span class="skill-pill"><i class='bx bxl-shopify'></i> Shopify</span>
+            </div>
+        </section>
 
+    </main>
 
+    <script>
+        // Local Time
+        function updateTime() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
+            document.getElementById('local-time').textContent = timeString;
+        }
+        setInterval(updateTime, 1000);
+        updateTime();
 
-
-
+        // Copy Email Function
+        function copyEmail() {
+            const email = document.getElementById('email-text').innerText;
+            navigator.clipboard.writeText(email).then(() => {
+                const card = document.querySelector('.email-card');
+                card.classList.add('copied');
+                setTimeout(() => card.classList.remove('copied'), 2000);
+            });
+        }
+    </script>
 </body>
+
 </html>
