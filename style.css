@@ -518,65 +518,84 @@ ul {
     /* NEW: Distribute widgets evenly */
 }
 
-/* NEW: Download CV Card */
-.cv-card {
-    background: linear-gradient(135deg, #252525, #1a1a1a);
+/* NEW: Learning Card (Learning Widget) */
+.learning-card {
+    background: linear-gradient(135deg, #1e1e2e, #111116);
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    padding: 2rem;
-    cursor: pointer;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.cv-content {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-}
-
-.cv-icon {
-    width: 50px;
-    height: 50px;
-    background: rgba(239, 68, 68, 0.15);
-    /* Red tint for PDF */
-    color: #ef4444;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
+    flex-direction: column;
     justify-content: center;
-    font-size: 1.5rem;
+    padding: 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.cv-card h3 {
+.learning-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.learning-header i {
+    color: var(--accent-color);
     font-size: 1.1rem;
-    margin-bottom: 0.25rem;
-    font-weight: 700;
 }
 
-.cv-card p {
-    font-size: 0.9rem;
+.learning-topic h3 {
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    color: white;
+    margin-bottom: 0.75rem;
+}
+
+.learning-progress-bar {
+    width: 100%;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+    margin-bottom: 0.5rem;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: var(--accent-color);
+    border-radius: 3px;
+    position: relative;
+}
+
+/* Shimmer effect for progress bar */
+.progress-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    animation: shimmer 2s infinite;
+}
+
+.learning-status {
+    font-size: 0.8rem;
     color: var(--text-secondary);
+    font-style: italic;
 }
 
-.download-arrow {
-    font-size: 1.5rem;
-    color: var(--text-secondary);
-    transition: transform 0.3s ease;
+@keyframes shimmer {
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(100%);
+    }
 }
 
-.cv-card:hover .download-arrow {
-    transform: translateY(3px);
-    color: var(--text-primary);
-}
-
-.cv-card:hover {
-    border-color: #ef4444;
-    /* Red accent on hover */
-}
-
-/* NEW: Services Card */
+/* NEW: Services Card (Adjusted spacing if needed) */
 .services-card {
     justify-content: center;
 }
