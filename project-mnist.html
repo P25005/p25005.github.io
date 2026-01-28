@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MNIST Recognizer | Pau Mateo</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Space+Grotesk:wght@500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Icons -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Specific Inline Style for Detail Grid (reusing generic bento concepts) -->
+    <style>
+        .project-detail-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        @media (min-width: 900px) {
+            .project-detail-grid {
+                grid-template-columns: repeat(3, 1fr);
+                grid-auto-rows: minmax(200px, auto);
+            }
+        }
+
+        /* Hero Span */
+        .detail-hero {
+            grid-column: span 1;
+            min-height: 400px;
+            position: relative;
+            border-radius: 28px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 2.5rem;
+            border: 1px solid var(--card-border);
+        }
+
+        @media (min-width: 900px) {
+            .detail-hero {
+                grid-column: span 3;
+            }
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.4);
+            transition: scale 10s ease;
+        }
+
+        .detail-hero:hover .hero-bg {
+            transform: scale(1.05);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-content h1 {
+            font-family: var(--font-heading);
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            line-height: 1.1;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, #fff, #a5b4fc);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-content p {
+            font-size: 1.1rem;
+            color: #e2e8f0;
+            max-width: 600px;
+        }
+
+        /* Bento cards reusing bento-item style */
+        .detail-card {
+            background-color: #121212;
+            border-radius: 28px;
+            padding: 2rem;
+            border: 1px solid var(--card-border);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .detail-card h3 {
+            font-family: var(--font-heading);
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .detail-card h3 i {
+            color: var(--accent-color);
+        }
+
+        .detail-card p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        /* Tech List */
+        .tech-list-vertical {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .tech-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .tech-item i {
+            font-size: 1.5rem;
+            color: var(--accent-color);
+        }
+
+        /* Feature List */
+        .feature-list li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        .feature-list li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: var(--accent-color);
+        }
+
+        /* Large Action Card */
+        .action-card {
+            background: linear-gradient(135deg, var(--accent-color), #4338ca);
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .action-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .action-card h2 {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .span-2 {
+            grid-column: span 1;
+        }
+
+        @media (min-width: 900px) {
+            .span-2 {
+                grid-column: span 2;
+            }
+        }
+
+        /* Metrics Table */
+        .metrics-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        .metrics-table td {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 0.95rem;
+        }
+
+        .metrics-table td:first-child {
+            color: var(--text-secondary);
+        }
+
+        .metrics-table td:last-child {
+            color: white;
+            font-weight: 600;
+            text-align: right;
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="page-container">
+
+        <!-- Header -->
+        <div class="projects-header" style="margin-top: 2rem;">
+            <h2>Project Details</h2>
+            <a href="projects.html" class="btn secondary"><i class='bx bx-arrow-back'></i> Volver a Proyectos</a>
+        </div>
+
+        <!-- Detail Bento Grid -->
+        <div class="project-detail-grid">
+
+            <!-- 1. HERO (Image & Main Title) - Span 3 -->
+            <article class="detail-hero">
+                <img src="imatges/mnist_banner.webp" alt="MNIST AI" class="hero-bg">
+                <div class="hero-content">
+                    <div class="project-tags-floating" style="position: relative; margin-bottom: 1rem; left: 0;">
+                        <span class="glass-tag">Computer Vision</span>
+                        <span class="glass-tag">Deep Learning</span>
+                    </div>
+                    <h1>MNIST Real-Time Digit Recognizer</h1>
+                    <p>Visión por Computador en Tiempo Real con Redes Neuronales Convolucionales (CNN) y TensorFlow.</p>
+                </div>
+            </article>
+
+            <!-- 2. DESCRIPTION (Span 2) -->
+            <article class="detail-card span-2">
+                <h3><i class='bx bx-detail'></i> Descripción del Proyecto</h3>
+                <p>
+                    Este proyecto es una aplicación de <strong>Visión por Computador</strong> capaz de reconocer dígitos
+                    manuscritos en tiempo real.
+                    El núcleo del sistema es una <strong>Red Neuronal Convolucional (CNN)</strong> entrenada con el
+                    dataset MNIST (70.000 imágenes), logrando una precisión superior al 99%.
+                </p>
+
+                <h3><i class='bx bx-cog'></i> Arquitectura del Pipeline</h3>
+                <p>El proyecto implementa un pipeline completo de ingeniería de datos:</p>
+                <ul class="feature-list" style="list-style: none; padding: 0;">
+                    <li>
+                        <strong style="color: white;">1. Input de Usuario:</strong>
+                        Captura de trazos en tiempo real sobre un canvas HTML5 integrado en Streamlit.
+                    </li>
+                    <li>
+                        <strong style="color: white;">2. Preprocessing (ETL):</strong>
+                        Captura de matriz RGBA, conversión a escala de grises, redimensionado a 28x28 píxeles (formato
+                        MNSIT), normalización de tensores (0-1) y reshape 4D.
+                    </li>
+                    <li>
+                        <strong style="color: white;">3. Inferencia:</strong>
+                        Procesamiento mediante modelo CNN pre-entrenado (.h5) con capas convolucionales y Max Pooling.
+                    </li>
+                    <li>
+                        <strong style="color: white;">4. Output:</strong>
+                        Clasificación Softmax mostrando la clase predicha y probabilidades de confianza.
+                    </li>
+                </ul>
+            </article>
+
+            <!-- 3. TECH STACK (Span 1) -->
+            <article class="detail-card">
+                <h3><i class='bx bx-layer'></i> Stack Tecnológico</h3>
+                <div class="tech-list-vertical">
+                    <div class="tech-item">
+                        <i class='bx bxl-python'></i>
+                        <span><strong>Deep Learning:</strong> TensorFlow & Keras.</span>
+                    </div>
+                    <div class="tech-item">
+                        <i class='bx bx-network-chart'></i>
+                        <span><strong>Model:</strong> CNN (Conv + MaxPool + Dense).</span>
+                    </div>
+                    <div class="tech-item">
+                        <i class='bx bx-image-alt'></i>
+                        <span><strong>Processing:</strong> NumPy, Pillow (PIL).</span>
+                    </div>
+                    <div class="tech-item">
+                        <i class='bx bx-globe'></i>
+                        <span><strong>Frontend:</strong> Streamlit.</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- 4. METRICS / SUMMARY (Span 1) -->
+            <article class="detail-card">
+                <h3><i class='bx bx-bar-chart-alt-2'></i> Rendimiento</h3>
+                <p style="font-size: 0.9rem;">El uso de redes convolucionales permite invarianza espacial
+                    (reconocimiento aunque no esté centrado).</p>
+                <table class="metrics-table">
+                    <tr>
+                        <td>Accuracy (Train)</td>
+                        <td>99.4%</td>
+                    </tr>
+                    <tr>
+                        <td>Accuracy (Test)</td>
+                        <td>99.1%</td>
+                    </tr>
+                    <tr>
+                        <td>Loss Function</td>
+                        <td>Sparse Cat. Crossentropy</td>
+                    </tr>
+                    <tr>
+                        <td>Optimizer</td>
+                        <td>Adam</td>
+                    </tr>
+                </table>
+            </article>
+
+            <!-- 5. CALL TO ACTION (Span 1) -->
+            <a href="https://mnist-digit-recognizer-p25005.streamlit.app" target="_blank"
+                class="detail-card action-card">
+                <i class='bx bx-play-circle' style="font-size: 3rem; margin-bottom: 0.5rem;"></i>
+                <h2>Demo en Vivo</h2>
+                <p style="color: rgba(255,255,255,0.8);">Probar Reconocimiento</p>
+            </a>
+
+            <!-- 6. GALLERY (Span 1) - Can be placeholder for now or removed if 5 items fit better, but standard grid is usually 3 cols. Let's keep it for balance or make it span 1. -->
+            <!-- Let's reuse the card for GitHub Repo link instead of Gallery since we have 2 links -->
+            <a href="https://github.com/P25005/MNIST-Digit-Recognizer/tree/main" target="_blank" class="detail-card"
+                style="justify-content: center; align-items: center; text-decoration: none; border-color: rgba(255,255,255,0.1); transition: 0.3s;">
+                <i class='bx bxl-github' style="font-size: 2.5rem; color: white; margin-bottom: 0.5rem;"></i>
+                <h3 style="margin: 0; padding: 0;">Ver en GitHub</h3>
+            </a>
+
+        </div>
+
+    </main>
+
+</body>
+
+</html>
